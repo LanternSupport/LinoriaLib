@@ -395,7 +395,7 @@ type IconModule = {
 
 local FetchIcons, Icons = pcall(function()
     local src = game:HttpGet("https://raw.githubusercontent.com/mstudio45/lucide-roblox-direct/refs/heads/main/source.lua")
-    src = src:gsub('"lucide%-icons', '"LanternX/lucide-icons')
+    src = src:gsub('lucide%-icons', 'LanternX/lucide-icons')
     return (loadstring(src) :: () -> IconModule)()
 end)
 
