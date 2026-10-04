@@ -54,14 +54,7 @@ local ThemeManager = {} do
 
 	ThemeManager.Library = nil
 	ThemeManager.BuiltInThemes = {
-		['Default']       = { 1, { FontColor = "ffffff", MainColor = "1c1c1c", AccentColor = "0055ff", BackgroundColor = "141414", OutlineColor = "323232" } },
-		['BBot']          = { 2, { FontColor = "ffffff", MainColor = "1e1e1e", AccentColor = "7e48a3", BackgroundColor = "232323", OutlineColor = "141414" } },
-		['Fatality']      = { 3, { FontColor = "ffffff", MainColor = "1e1842", AccentColor = "c50754", BackgroundColor = "191335", OutlineColor = "3c355d" } },
-		['Jester']        = { 4, { FontColor = "ffffff", MainColor = "242424", AccentColor = "db4467", BackgroundColor = "1c1c1c", OutlineColor = "373737" } },
-		['Mint']          = { 5, { FontColor = "ffffff", MainColor = "242424", AccentColor = "3db488", BackgroundColor = "1c1c1c", OutlineColor = "373737" } },
-		['Tokyo Night']   = { 6, { FontColor = "ffffff", MainColor = "191925", AccentColor = "6759b3", BackgroundColor = "16161f", OutlineColor = "323232" } },
-		['Ubuntu']        = { 7, { FontColor = "ffffff", MainColor = "3e3e3e", AccentColor = "e2581e", BackgroundColor = "323232", OutlineColor = "191919" } },
-		['Quartz']        = { 8, { FontColor = "ffffff", MainColor = "232330", AccentColor = "426e87", BackgroundColor = "1d1b26", OutlineColor = "27232f" } },
+		['Default']       = { 1, { FontColor = "ffffff", MainColor = "141414", AccentColor = "ff0000", BackgroundColor = "141414", OutlineColor = "323232" } },
 	}
 
 	function ApplyBackgroundVideo(videoLink)
@@ -344,55 +337,55 @@ local ThemeManager = {} do
 		end)
 
 		groupbox:AddDivider()
-
-		groupbox:AddDropdown('ThemeManager_CustomThemeList', { Text = 'Custom themes', Values = self:ReloadCustomThemes(), AllowNull = true, Default = 1 })
-		groupbox:AddButton('Load theme', function()
-			local name = self.Library.Options.ThemeManager_CustomThemeList.Value
-
-			self:ApplyTheme(name)
-			self.Library:Notify(string.format('Loaded theme %q', name))
-		end)
-		groupbox:AddButton('Overwrite theme', function()
-			local name = self.Library.Options.ThemeManager_CustomThemeList.Value
-
-			self:SaveCustomTheme(name)
-			self.Library:Notify(string.format('Overwrote config %q', name))
-		end)
-		groupbox:AddButton('Delete theme', function()
-			local name = self.Library.Options.ThemeManager_CustomThemeList.Value
-
-			local success, err = self:Delete(name)
-			if not success then
-				self.Library:Notify('Failed to delete theme: ' .. err)
-				return
-			end
-
-			self.Library:Notify(string.format('Deleted theme %q', name))
-			self.Library.Options.ThemeManager_CustomThemeList:SetValues(self:ReloadCustomThemes())
-			self.Library.Options.ThemeManager_CustomThemeList:SetValue(nil)
-		end)
-		groupbox:AddButton('Refresh list', function()
-			self.Library.Options.ThemeManager_CustomThemeList:SetValues(self:ReloadCustomThemes())
-			self.Library.Options.ThemeManager_CustomThemeList:SetValue(nil)
-		end)
-		groupbox:AddButton('Set as default', function()
-			if self.Library.Options.ThemeManager_CustomThemeList.Value ~= nil and self.Library.Options.ThemeManager_CustomThemeList.Value ~= '' then
-				self:SaveDefault(self.Library.Options.ThemeManager_CustomThemeList.Value)
-				self.Library:Notify(string.format('Set default theme to %q', self.Library.Options.ThemeManager_CustomThemeList.Value))
-			end
-		end)
-		groupbox:AddButton('Reset default', function()
-			local success = pcall(delfile, self.Folder .. '/themes/default.txt')
-			if not success then 
-				self.Library:Notify('Failed to reset default: delete file error')
-				return
-			end
-				
-			self.Library:Notify('Set default theme to nothing')
-			self.Library.Options.ThemeManager_CustomThemeList:SetValues(self:ReloadCustomThemes())
-			self.Library.Options.ThemeManager_CustomThemeList:SetValue(nil)
-		end)
-
+-- 
+-- 		groupbox:AddDropdown('ThemeManager_CustomThemeList', { Text = 'Custom themes', Values = self:ReloadCustomThemes(), AllowNull = true, Default = 1 })
+-- 		groupbox:AddButton('Load theme', function()
+-- 			local name = self.Library.Options.ThemeManager_CustomThemeList.Value
+-- 
+-- 			self:ApplyTheme(name)
+-- 			self.Library:Notify(string.format('Loaded theme %q', name))
+-- 		end)
+-- 		groupbox:AddButton('Overwrite theme', function()
+-- 			local name = self.Library.Options.ThemeManager_CustomThemeList.Value
+-- 
+-- 			self:SaveCustomTheme(name)
+-- 			self.Library:Notify(string.format('Overwrote config %q', name))
+-- 		end)
+-- 		groupbox:AddButton('Delete theme', function()
+-- 			local name = self.Library.Options.ThemeManager_CustomThemeList.Value
+-- 
+-- 			local success, err = self:Delete(name)
+-- 			if not success then
+-- 				self.Library:Notify('Failed to delete theme: ' .. err)
+-- 				return
+-- 			end
+-- 
+-- 			self.Library:Notify(string.format('Deleted theme %q', name))
+-- 			self.Library.Options.ThemeManager_CustomThemeList:SetValues(self:ReloadCustomThemes())
+-- 			self.Library.Options.ThemeManager_CustomThemeList:SetValue(nil)
+-- 		end)
+-- 		groupbox:AddButton('Refresh list', function()
+-- 			self.Library.Options.ThemeManager_CustomThemeList:SetValues(self:ReloadCustomThemes())
+-- 			self.Library.Options.ThemeManager_CustomThemeList:SetValue(nil)
+-- 		end)
+-- 		groupbox:AddButton('Set as default', function()
+-- 			if self.Library.Options.ThemeManager_CustomThemeList.Value ~= nil and self.Library.Options.ThemeManager_CustomThemeList.Value ~= '' then
+-- 				self:SaveDefault(self.Library.Options.ThemeManager_CustomThemeList.Value)
+-- 				self.Library:Notify(string.format('Set default theme to %q', self.Library.Options.ThemeManager_CustomThemeList.Value))
+-- 			end
+-- 		end)
+-- 		groupbox:AddButton('Reset default', function()
+-- 			local success = pcall(delfile, self.Folder .. '/themes/default.txt')
+-- 			if not success then 
+-- 				self.Library:Notify('Failed to reset default: delete file error')
+-- 				return
+-- 			end
+-- 				
+-- 			self.Library:Notify('Set default theme to nothing')
+-- 			self.Library.Options.ThemeManager_CustomThemeList:SetValues(self:ReloadCustomThemes())
+-- 			self.Library.Options.ThemeManager_CustomThemeList:SetValue(nil)
+-- 		end)
+-- 
 		self:LoadDefault()
 
 		local function UpdateTheme() self:ThemeUpdate() end
